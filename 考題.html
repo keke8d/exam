@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>課後考試</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .answer {
+            margin-top: 10px;
+            color: green;
+        }
+        .error {
+            margin-top: 10px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>課後考試</h1>
+    <div id="question1" class="question">
+        <p>第一題：單選題（20分）<br>請根據「量價九法」的原理，選出以下描述的正確答案：<br>
+        當股價在高位區間出現“量增價跌”現象時，表示什麼？</p>
+        <form>
+            <input type="radio" name="q1" value="A"> A. 市場多方力量增加，股價即將上漲<br>
+            <input type="radio" name="q1" value="B"> B. 市場空方力量強大，股價可能會下跌<br>
+            <input type="radio" name="q1" value="C"> C. 市場沒有明顯趨勢變化，股價可能持平<br>
+            <input type="radio" name="q1" value="D"> D. 市場交易量減少，股價即將下跌<br>
+            <button type="button" onclick="checkQ1()">提交答案</button>
+        </form>
+        <p id="result1" class="answer"></p>
+    </div>
+
+    <div id="question2" class="question" style="display: none;">
+        <p>第二題：判斷題（30分）<br>根據課件中的分析，判斷以下敘述是否正確，並簡要說明理由。<br>
+        如果在股價低位區間出現“量增價跌”現象，通常表示市場有資金進場，後期有望出現反彈行情。（對/錯）</p>
+        <form>
+            <input type="radio" name="q2" value="對"> 對<br>
+            <input type="radio" name="q2" value="錯"> 錯<br>
+            <button type="button" onclick="checkQ2()">提交答案</button>
+        </form>
+        <p id="result2" class="answer"></p>
+    </div>
+
+    <div id="question3" class="question" style="display: none;">
+        <p>第三題：簡答題（50分）<br>請結合課件中的技術分析方法，回答以下問題：<br>
+        當市場出現崩盤行情時，技術分析往往會顯得無力，請列舉造成台股大幅下跌的三個主要原因，並簡要說明其對市場的影響。</p>
+        <textarea id="q3" rows="4" cols="50"></textarea><br>
+        <button type="button" onclick="checkQ3()">提交答案</button>
+        <p id="result3" class="answer"></p>
+    </div>
+
+    <div id="summary" class="question" style="display: none;">
+        <p>感謝你完成考試！總分100分。請查看你獲得的總分，並期待下次參與！</p>
+        <p id="score" class="answer"></p>
+    </div>
+
+    <script>
+        let score = 0;
+
+        function checkQ1() {
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const result1 = document.getElementById('result1');
+            if (q1 && q1.value === 'B') {
+                result1.textContent = '正確！你獲得20分。';
+                score += 20;
+            } else {
+                result1.textContent = '錯誤！正確答案是B。市場空方力量強大，股價可能會下跌。';
+                result1.classList.add('error');
+            }
+            document.getElementById('question2').style.display = 'block';
+        }
+
+        function checkQ2() {
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const result2 = document.getElementById('result2');
+            if (q2 && q2.value === '對') {
+                result2.textContent = '正確！你獲得30分。理由：在股價低位區間出現“量增價跌”現象，通常表示有資金在進場吃貨，可能形成底部或反彈行情。';
+                score += 30;
+            } else {
+                result2.textContent = '錯誤！正確答案是對。理由：在股價低位區間出現“量增價跌”現象，通常表示有資金在進場吃貨，可能形成底部或反彈行情。';
+                result2.classList.add('error');
+            }
+            document.getElementById('question3').style.display = 'block';
+        }
+
+        function checkQ3() {
+            const q3 = document.getElementById('q3').value;
+            const result3 = document.getElementById('result3');
+            const correctAnswer = `正確答案如下：
+            1. 美國經濟數據基本面看衰：負面經濟數據會影響市場信心，導致股價下跌。
+            2. 日本央行加息：導致套利交易資金流出市場，影響股市資金流動性。
+            3. 美科技股暴跌：如巴菲特減持蘋果股票，會引發市場恐慌，導致大幅拋售。`;
+
+            result3.textContent = `感謝你的回答。${correctAnswer}`;
+            score += 50;  // 根據您提供的設置，第三題直接給滿分
+            document.getElementById('summary').style.display = 'block';
+            document.getElementById('score').textContent = `你的總分是：${score}分。`;
+        }
+    </script>
+</body>
+</html>
